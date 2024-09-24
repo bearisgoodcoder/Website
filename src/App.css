@@ -1,38 +1,450 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: 'Tahoma', 'Segoe UI', Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  cursor: url('./assets/normal.cur'), auto !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-image: url('./assets/windows-xp-bliss.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.desktop {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  height: calc(100vh - 400px);
+  overflow: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.desktop-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.desktop-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-align: center;
+  cursor: url('./assets/normal.cur'), pointer !important;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.desktop-icon:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.desktop-icon img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+}
+
+.desktop-icon span {
   color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  font-size: 14px;
 }
 
-.App-link {
-  color: #61dafb;
+.window {
+  background-color: #ECE9D8;
+  border: 2px solid #0054E3;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
+  min-height: 200px;
+  resize: both;
+  overflow: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.window-header {
+  background: linear-gradient(to right, #0054E3, #3890FF);
+  color: white;
+  padding: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: url('./assets/normal.cur'), move !important;
+}
+
+.window-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.window-close {
+  background-color: #ff5c5c;
+  border: 1px solid #ff3b3b;
+  color: white;
+  cursor: url('./assets/normal.cur'), pointer !important;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.window-content {
+  padding: 16px;
+  overflow: auto;
+  max-height: calc(100vh - 100px);
+}
+
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, #1f68d5, #0d44a0);
+  border-top: 2px solid #2671db;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: flex-start;
+}
+
+.start-button {
+  background: linear-gradient(to bottom, #3c9e49, #368c41);
+  border: 1px solid #2d7a37;
+  color: white;
+  padding: 4px 12px;
+  margin-right: 10px;
+  cursor: url('./assets/normal.cur'), pointer !important;
+  font-weight: bold;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.taskbar-icons {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.taskbar-icons svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  cursor: url('./assets/normal.cur'), pointer !important;
+}
+
+.taskbar-time {
+  color: white;
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+/* Styles for window content */
+.window-content h2 {
+  margin-top: 0;
+  color: #003399;
+}
+
+.window-content ul {
+  padding-left: 20px;
+}
+
+.window-content p {
+  margin-bottom: 10px;
+}
+
+/* Start Menu styles */
+.start-menu {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 300px;
+  background-color: #0054E3;
+  border: 2px solid #003399;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  z-index: 1000;
+}
+
+.start-menu-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #003399;
+}
+
+.start-menu-header img {
+  margin-right: 10px;
+}
+
+.start-menu-items {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.start-menu-items button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 8px;
+  text-align: left;
+  cursor: url('./assets/pointer.cur'), pointer !important;
+  transition: background-color 0.3s;
+}
+
+.start-menu-items button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.start-menu-close {
+  background-color: #ff5c5c;
+  border: none;
+  color: white;
+  padding: 8px;
+  width: 100%;
+  cursor: url('./assets/pointer.cur'), pointer !important;
+}
+
+/* Ensure custom cursor is used everywhere */
+* {
+  cursor: url('./assets/normal.cur'), auto !important;
+}
+
+button, a, .desktop-icon, .window-close, .start-button, .taskbar-icons svg {
+  cursor: url('./assets/pointer.cur'), pointer !important;
+}
+
+html, body, #root, .app {
+  cursor: url('./assets/normal.cur'), auto !important;
+}
+
+button, a, .desktop-icon, .window-close, .start-button, .taskbar-icons svg {
+  cursor: url('./assets/pointer.cur'), pointer !important;
+}
+
+.window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #0054E3;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.window-content {
+  flex-grow: 1;
+  overflow: auto;
+  padding: 10px;
+}
+
+.game-window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #0054E3;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.game-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.game-start-menu {
+  text-align: center;
+  padding: 20px;
+}
+
+.game-start-menu h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.game-start-menu p {
+  margin-bottom: 20px;
+}
+
+.game-start-menu button,
+.stop-game-btn {
+  background-color: #0054E3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.game-start-menu button:hover,
+.stop-game-btn:hover {
+  background-color: #003399;
+}
+
+.stop-game-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.game-window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  border: 1px solid #0054E3;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.game-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+}
+
+.game-start-menu {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+}
+
+.game-start-menu h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.game-start-menu p {
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.game-start-menu button,
+.stop-game-btn {
+  background-color: #0054E3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.game-start-menu button:hover,
+.stop-game-btn:hover {
+  background-color: #003399;
+}
+
+.stop-game-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Updated Start Menu styles */
+.start-menu {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 320px;
+  background: linear-gradient(to bottom, #015db2, #2989d8, #2989d8, #015db2);
+  border: 2px solid #003399;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.start-menu-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #15488c;
+  border-bottom: 1px solid #2572bc;
+}
+
+.start-menu-header img {
+  margin-right: 10px;
+}
+
+.start-menu-items {
+  display: flex;
+  padding: 10px;
+}
+
+.start-menu-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.start-menu-items button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-menu-items button:hover {
+  background-color: #3c91e6;
+}
+
+.start-menu-close {
+  background-color: #c13535;
+  border: none;
+  color: white;
+  padding: 8px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.start-menu-close:hover {
+  background-color: #e04343;
+}
+
+.window-content {
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
 }
